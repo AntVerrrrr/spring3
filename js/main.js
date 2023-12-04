@@ -162,7 +162,23 @@ function submitLoginForm(event) {
 
 
 // ---------------------------------------------------------------------------------------------
-// 근본 
+function displayPosts(posts) {
+  var postList = document.getElementById("postList");
+  postList.innerHTML = ''; // 기존 목록을 비웁니다.
+
+  posts.forEach(function(post) {
+      var listItem = document.createElement("li");
+      var date = new Date(post.created_at).toLocaleDateString(); // 날짜 형식 변환
+      var contentPreview = post.content.substring(0, 100) + '...'; // 내용의 첫 100자
+
+      listItem.innerHTML = 
+            "<a href='post_detail.php?id=" + post.id + "'><strong>" + post.title + "</strong>" +
+            " - " + contentPreview +
+            " - <small>" + date + "</small></a>";
+        postList.appendChild(listItem);
+  });
+}
+// 근본 ---------------------------------------------------------------------------------------
 function main() {
 
 (function () {
