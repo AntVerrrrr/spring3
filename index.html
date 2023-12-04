@@ -271,13 +271,17 @@
 </head>
 <body>
 
+
   <div id="works">
     <div class="container">
         <div class="section-title text-center center">
             <h2>여러분을 어필해보세요. </h2>
             <hr>
-                <a href="write.php" class="write-button">
-                    <img src="img/ic-pen.svg" alt="글쓰기"> 글쓰기 <!-- 연필 아이콘 이미지 경로 -->
+                <!-- <a href="write.php" class="write-button">
+                    <img src="img/ic-pen.svg" alt="글쓰기"> 글쓰기
+                </a> -->
+                <a href="javascript:void(0);" class="write-button" onclick="checkLoginAndRedirect()">
+                  <img src="img/ic-pen.svg" alt="글쓰기"> 글쓰기
                 </a>
            
             
@@ -288,7 +292,22 @@
         </div>
     </div>
 </div>
-
+<!-- 로그인 안하면 글 못씀 -->
+<script>
+  function checkLoginAndRedirect() {
+      fetch('check_login_status.php')
+      .then(response => response.json())
+      .then(data => {
+          if (data.loggedIn) {
+              // 로그인 상태일 경우 글쓰기 페이지로 이동
+              window.location.href = 'write.php';
+          } else {
+              // 로그인 상태가 아닐 경우 안내 문구 표시
+              alert('로그인을 먼저 하세요.');
+          }
+      });
+  }
+  </script>
 
 <script>
   // Ajax를 사용하여 서버에서 게시글 목록을 가져오는 함수
