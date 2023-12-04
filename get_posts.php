@@ -12,22 +12,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// 글 목록 가져오기
-$sql = "SELECT title, content, image_filename FROM posts";
+// 게시글 불러오기 쿼리
+$sql = "SELECT * FROM posts"; // 'posts'는 게시글 정보가 저장된 테이블
 $result = $conn->query($sql);
 
-$posts = array();
+$posts = [];
 
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $posts[] = $row;
+    // 결과를 배열로 변환
+    while($row = $result->fetch_assoc()) {
+        array_push($posts, $row);
     }
 }
 
-// MySQL 연결 종료
-$conn->close();
+echo json_encode($posts); // 게시글 목록을 JSON 형식으로 출력
 
-// JSON 형식으로 데이터 반환
-header('Content-Type: application/json');
-echo json_encode($posts);
+$conn->close();
 ?>

@@ -18,6 +18,7 @@
 <script type="text/javascript" src="js/modernizr.custom.js"></script>
 <link rel="stylesheet" type="text/css" href="css/signup.css">  <!-- 회원가입 css -->
 <link rel="stylesheet" type="text/css" href="css/login.css">  <!-- 로그인 css -->
+<link rel="stylesheet" type="text/css" href="css/postList.css"> <!-- 게시글 요약 보여주기 -->
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -191,8 +192,8 @@
     <div class="row">
       <div class="col-md-3 col-sm-6">
         <div class="service"> <i class="fa fa-desktop"></i>
-          <h3>Web Design</h3>
-          <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+          <h3>온라인에서!!</h3>
+          <p>온라인에서 여러분의 상대를 찾으세요!!</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6">
@@ -251,21 +252,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
     <style>
-        /* 추가된 부분은 이전 스타일에 영향을 미칠 수 있으므로 주의하세요 */
+        /* 추가된 부분은 이전 스타일에 영향을 미칠 수 있으므로 주의*/
     </style>
 </head>
 <body>
 
-<div id="works">
-    <div class="container"> <!-- Container -->
+  <div id="works">
+    <div class="container">
         <div class="section-title text-center center">
-            <h2>여러분을 어필해보세요.</h2>
+            <h2>여러분을 어필해보세요. </h2>
             <hr>
+                <a href="write.php" class="write-button">
+                    <img src="img/ic-pen.svg" alt="글쓰기"> 글쓰기 <!-- 연필 아이콘 이미지 경로 -->
+                </a>
+           
+            
             <div class="clearfix"></div>
-            <a href="write.php">글쓰기</a>
-
-            <!-- 게시글 목록을 표시할 공간 -->
-            <ul id="postList"></ul>
+            <br>
+            <ul id="postList"> <!-- 게시글 목록을 표시할 공간 -->
+            </ul>
         </div>
     </div>
 </div>
