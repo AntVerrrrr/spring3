@@ -1,3 +1,58 @@
+// 세션 확인
+// 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', function() {
+  checkLoginStatus();
+
+  // 기존 코드...
+});
+
+function checkLoginStatus() {
+  fetch('check_login_status.php')
+  .then(response => response.json())
+  .then(data => {
+      if (data.loggedIn) {
+          document.getElementById('loginButton').style.display = 'none';
+          document.getElementById('signupButton').style.display = 'none';
+          document.getElementById('logoutButton').style.display = 'block';
+          document.getElementById('username').textContent = data.username;
+          document.getElementById('welcomeMessage').style.display = 'block';
+      } else {
+          document.getElementById('loginButton').style.display = 'block';
+          document.getElementById('signupButton').style.display = 'block';
+          document.getElementById('logoutButton').style.display = 'none';
+          document.getElementById('welcomeMessage').style.display = 'none';
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}
+// ----------------------------------------------------------------------------------
+// 로그아웃
+function logout() {
+  fetch('logout.php', {
+      method: 'POST'
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          console.log("로그아웃 성공");
+
+          // 로그아웃 버튼 숨기기
+          document.getElementById('logoutButton').style.display = 'none';
+
+          // 로그인 및 회원가입 버튼 다시 표시
+          document.getElementById('loginButton').style.display = 'block';
+          document.getElementById('signupButton').style.display = 'block';
+
+          // 페이지 리디렉션 또는 새로고침
+          window.location.href = 'index.html';
+      } else {
+          alert("로그아웃 실패");
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+// -----------------------------------------------------------------------
 // 아이디 체크 비동기
 function check_id() {
   window.open("member_check_id.php?id=" + document.member_form.id.value,
@@ -67,7 +122,8 @@ function submitLoginForm(event) {
           // 사용자 이름과 환영 메시지 표시
           document.getElementById('username').textContent = data.name;
           document.getElementById('welcomeMessage').style.display = 'block';
-          
+          document.getElementById('logoutButton').style.display = 'block';
+
           // // 사용자 이름 표시
           // var usernameDisplay = document.getElementById('usernameDisplay');
           // usernameDisplay.textContent = data.name; // 서버로부터 받은 이름
