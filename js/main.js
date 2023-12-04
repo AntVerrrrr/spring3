@@ -178,6 +178,39 @@ function displayPosts(posts) {
         postList.appendChild(listItem);
   });
 }
+// --------------------------------------------------------------------
+// 프로필 페이지
+function loadUserProfile() {
+  // 서버로부터 사용자 정보를 가져오는 AJAX 요청
+  fetch('get_user_profile.php') // 실제 서버 경로로 대체
+      .then(response => response.json())
+      .then(data => {
+          // 서버로부터 받은 사용자 정보를 모달창에 표시
+          const userInfoContent = document.getElementById('userInfoContent');
+          userInfoContent.innerHTML = `
+              <strong>ID:</strong> ${data.id}<br>
+              <strong>Name:</strong> ${data.name}<br>
+              <strong>Email:</strong> ${data.email}`;
+      })
+      .catch(error => console.error('Error:', error));
+}
+
+// 사용자 이름 버튼 클릭 시 이벤트 핸들러
+document.getElementById('usernameButton').addEventListener('click', function() {
+  document.getElementById('id03').style.display = 'block';
+  loadUserProfile(); // 사용자 프로필 정보 로드
+});
+
+// Get the modal
+// 이거 박으로 클릭하면 창이 없어지는 모션
+var modal = document.getElementById('id03');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 // 근본 ---------------------------------------------------------------------------------------
 function main() {
 

@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="css/signup.css">  <!-- 회원가입 css -->
 <link rel="stylesheet" type="text/css" href="css/login.css">  <!-- 로그인 css -->
 <link rel="stylesheet" type="text/css" href="css/postList.css"> <!-- 게시글 요약 보여주기 -->
+<link rel="stylesheet" type="text/css" href="css/user_info.css"> 
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,9 +57,22 @@
 
         <!-- 환영 메시지 요소 -->
         <li id="welcomeMessage" style="display: none;">
-          <span id="username"></span>님 반갑습니다.
+          <button id="usernameButton" onclick="document.getElementById('id03').style.display='block'">
+            <span id="username"></span>
+          </button>
         </li>
         <li><button id="logoutButton" onclick="logout()" style="display: none;">Logout</button></li>
+
+        <!-- 사용자 정보 모달 -->
+        <div id="id03" class="modal">
+          <div class="modal-content">
+              <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+              <h1>사용자 정보</h1>
+              <!-- 모달 내용 -->
+              <p id="userInfoContent">사용자 정보가 여기에 표시됩니다.</p>
+          </div>
+        </div>
+
 
         <!-- <li><div id="usernameDisplay" style="display: none;"></div></li> -->
         <!-- 회원가입,로그인 교수님이 준 소스코드를 응용해서 모달기능으로 바꿔봤음.. -->
