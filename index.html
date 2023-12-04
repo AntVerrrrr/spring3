@@ -52,7 +52,7 @@
         <li> <a class="page-scroll" href="#team">Ai</a> </li>
         <!-- <li> <a class="page-scroll" href="#testimonials">Develops</a> </li> -->
         <li> <a class="page-scroll" href="#contact">Contact</a> </li>
-        
+
         <!-- 환영 메시지 요소 -->
         <li id="welcomeMessage" style="display: none;">
           <span id="username"></span>님 반갑습니다.
@@ -243,16 +243,67 @@
   </div>
 </div>
 <!-- Portfolio Section -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <style>
+        /* 추가된 부분은 이전 스타일에 영향을 미칠 수 있으므로 주의하세요 */
+    </style>
+</head>
+<body>
+
 <div id="works">
-  <div class="container"> <!-- Container -->
-    <div class="section-title text-center center">
-      <h2>여러분을 어필해보세요.</h2>
-      <hr>
-      <div class="clearfix"></div>
-      <p>글적기</p>
+    <div class="container"> <!-- Container -->
+        <div class="section-title text-center center">
+            <h2>여러분을 어필해보세요.</h2>
+            <hr>
+            <div class="clearfix"></div>
+            <a href="write.php">글쓰기</a>
+
+            <!-- 게시글 목록을 표시할 공간 -->
+            <ul id="postList"></ul>
+        </div>
     </div>
-  </div>
 </div>
+
+
+<script>
+  // Ajax를 사용하여 서버에서 게시글 목록을 가져오는 함수
+  function fetchPosts() {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+              // 서버로부터 받은 JSON 데이터를 처리
+              var posts = JSON.parse(this.responseText);
+              displayPosts(posts);
+          }
+      };
+      xhr.open("GET", "get_posts.php", true);
+      xhr.send();
+  }
+  // 가져온 게시글 목록을 HTML에 동적으로 추가하는 함수
+  function displayPosts(posts) {
+        var postList = document.getElementById("postList");
+
+        posts.forEach(function(post) {
+            var listItem = document.createElement("li");
+            listItem.innerHTML = "<h3>" + post.title + "</h3>" +
+                                 "<p>" + post.content + "</p>" +
+                                 "<img src='uploads/" + post.image_filename + "' alt='게시글 이미지'>";
+            postList.appendChild(listItem);
+        });
+    }
+
+    // 페이지 로드 시 게시글 목록을 가져오도록 설정
+    window.onload = fetchPosts;
+</script>
+
+</body>
+</html>
+
 
 
 
