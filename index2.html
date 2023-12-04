@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<!--
+   초간단한 AI 그림 생성 사이트를 직접 만들어봤습니다
+   물론 미드저니와 같은 사이트와 비교할수 있는 수준은 아니지만 의미가 있는 부분은 AI 그림 생성(Stable Diffusion) 사이트를 만드는 작업에서 중점을 둔 부분이 코딩을 AI에게 맡긴다는 부분과, 그렇게 함으로써 작업시간을 매우 단축시켰다는 부분입니다
+   이 과정이 코딩을 배워나가시는 분들과 코딩이 아닌 노코드를 추구하시는 분들 모두에게 도움이 되실거라 기대합니다
+
+   본 소스코드는 OpenAI API를 활용해보는 인공지능 그림 생성의 간단한 예시코드입니다
+   소스코드 상에서 'API-KEY' 부분에 API를 발급받아서 넣어서 OpenAI API에 요청할 수 있습니다
+   API의 발급은 다음 웹페이지에서 가능합니다
+   https://platform.openai.com/account/api-keys
+   API에 요청에 따른 비용이 과금될 수 있는점과 API키가 노출되지 않도록 유의해주세요.
+   프론트엔드 코드는 노출될 수 있으므로 API키를 프론트엔드 코드에 넣지 않도록 유의해주세요.
+   본 소스코드는 학습을 위한 예시이므로 실제 서비스 개발시에는 이 예시에서처럼 프론트엔드 코드에 API키를 포함하지 않는것이 좋습니다.
+   본 코드는 AI 코딩 어시스턴트 익스텐션인 https://aicodehelper.dev/ 의 도움을 받아 제작되었습니다.
+-->
+<head>
+    <title>이미지 생성기</title>
+    <style>
+        body {
+            background-color: black;
+            /* 배경색 검은색으로 설정 */
+        }
+    </style>
+    <script>
+        function genImg() {
+            var promptText = document.querySelector('input').value;
+            var data = {
+                "model": "image-alpha-001",
+                "prompt": promptText,
+                "num_images": 1
+            }
+            fetch('https://api.openai.com/v1/images/generations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer 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' // API KEY 키 입력
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    document.querySelector('img').src = data.data[0].url;
+                })
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        <input type="text" placeholder="생성할 이미지를 묘사해주세요"> <!-- 입력박스 생성, 플레이스홀더 추가 -->
+        <button type="button" onclick="genImg()">이미지 생성</button> <!-- 버튼 생성, onclick 이벤트로 genImg 함수 실행 -->
+    </form>
+    <img src="">
+    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/6UnOfB9fRoo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+</body>
+
+</html>
+
+
+글을 입력하는 박스랑
+제출하는 버튼
