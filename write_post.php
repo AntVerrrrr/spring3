@@ -1,7 +1,10 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+session_start(); // 세션 시작
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
     $title = $_POST['title'];
     $content = $_POST['content'];
+    $userId = $_SESSION['user_id']; // 현재 로그인한 사용자의 ID
 
     // 파일 업로드 처리
     $uploadDir = 'uploads/';
@@ -24,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // SQL 쿼리 작성 및 실행 (Prepared Statement 사용)
-        $sql = "INSERT INTO posts (title, content, image_path) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO posts (title, content, image_path, user_id) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $title, $content, $imagePath);
+        $stmt->bind_param("sssi", $title, $content, $imagePath, $userId);
 
         if ($stmt->execute()) {
             echo "게시글이 성공적으로 작성되었습니다.";
