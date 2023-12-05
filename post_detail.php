@@ -102,6 +102,7 @@
                 echo "<div class='form-group'><img src='" . htmlspecialchars($post['image_path']) . "' alt='게시글 이미지' style='max-width:100%; height:auto;' /></div>";
             }
 
+            
             // 삭제 버튼
             echo "<form method='POST' action='delete_post.php'>";
             echo "<input type='hidden' name='id' value='" . $post['id'] . "'>";
